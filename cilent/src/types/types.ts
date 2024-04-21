@@ -4,7 +4,7 @@ export interface IPizza {
     unitPrice: number;
     ingredients: string[];
     soldOut: boolean;
-    imageUrl: string
+    imageUrl: string;
 }
 
 export interface Item {
@@ -18,4 +18,9 @@ export interface OrderItemProp {
     item: Item;
     isLoadingIngredients: boolean;
     ingredients: string[]
+}
+
+export interface IPosition {
+    latitude: number;
+    longitude: number;
 }

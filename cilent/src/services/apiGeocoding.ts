@@ -1,4 +1,6 @@
-export async function getAddress({ latitude, longitude }) {
+import { IPosition } from "../types/types";
+
+export async function getAddress({ latitude, longitude }: IPosition) {
     const res = await fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`
     );
