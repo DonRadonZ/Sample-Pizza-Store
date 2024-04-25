@@ -48,7 +48,7 @@ import OrderItem from "./OrderItem";
         </div>
   
         <ul className="dive-stone-200 divide-y border-b border-t">
-          {cart.map(item => <OrderItem item={item} key={item.id} />)}
+          {cart.map(item => <OrderItem item={item} key={item.pizzaId} isLoadingIngredients={false} ingredients={[]} />)}
         </ul>
 
         <div className="space-y-2 bg-stone-200 px-6 py-5">
