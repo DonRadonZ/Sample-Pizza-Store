@@ -1,7 +1,15 @@
-import React from 'react'
+import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Button({ children, disabled, to, type, onClick }) {
+type Props = {
+    children: ReactNode;
+    disabled?: boolean;
+    to?: string;
+    type: 'primary' | 'secondary' | 'small';
+    onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
+export default function Button({ children, disabled, to, type, onClick }: Props) {
     const base = "inline-block text-sm bg-yellow-400 uppercase tracking-wide font-semibold text-stone-800 rounded-full hover:bg-yellow-300 transition-colors duration-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:bg-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed"
     const styles = {
         primary: base + 'px-4 py-3 sm:px-6 sm:py-4',

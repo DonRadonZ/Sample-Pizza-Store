@@ -36,3 +36,7 @@ export interface ICartItem {
 export interface IUserState {
     username: string;
 }
+
+export type CartStateProps = {
+    cart: ICartItem[]
+}
