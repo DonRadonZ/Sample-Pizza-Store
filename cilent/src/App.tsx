@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./ui/Home";
-import Error from "./ui/Error";
+import ErrorPage from "./ui/Error";
 import Menu, {loader as menuLoader } from "./features/menu/Menu";
 
 import Cart from "./features/cart/Cart";
@@ -12,7 +12,7 @@ import AppLayout from './ui/AppLayout';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
-    errorElement: <Error/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: '/',
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         path: '/menu',
         element: <Menu/>,
         loader: menuLoader,
-        errorElement: <Error/>,
+        errorElement: <ErrorPage/>,
       },
       {
         path: '/cart',
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: '/order/:orderId',
         element: <Order />,
         loader: orderLoader,
-        errorElement: <Error/>, 
+        errorElement: <ErrorPage/>, 
       },
     ]
   },

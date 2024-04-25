@@ -24,3 +24,15 @@ export interface IPosition {
     latitude: number;
     longitude: number;
 }
+
+export interface ICartItem {
+    pizzaId: number;
+    name: string;
+    quantity: number;
+    unitPrice: number;
+    totalPrice: number;
+}
+
+export interface IUserState {
+    username: string;
+}

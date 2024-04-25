@@ -24,7 +24,7 @@ function getPosition() {
   }
 */
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   username: '',
@@ -34,7 +34,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateName(state, action) {
+    updateName(state, action: PayloadAction<string>) {
       state.username = action.payload;
     },
   },

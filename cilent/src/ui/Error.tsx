@@ -1,14 +1,21 @@
-import { useRouteError } from 'react-router-dom';
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import LinkButton from './LinkButton';
 
-function Error() {
+function ErrorPage() {
   
   const error = useRouteError();
+  let message = 'Something went wrong'
+
+  if (isRouteErrorResponse(error)) {
+    message = error.data
+  } else if (error instanceof Error) {
+    message = error.message;
+  }
 
   return (
     <div>
       <h1>Something went wrong 😢</h1>
-      <p>{error.data || error.message}</p>
+      <p>{}</p>
 
       <LinkButton to="-1">&larr; Go back</LinkButton>
 
@@ -17,4 +24,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default ErrorPage;

@@ -1,8 +1,12 @@
+import { ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom"
 
+type Prop = {
+    children: ReactNode;
+    to: string;
+}
 
-
-export default function LinkButton({ children, to }) {
+export default function LinkButton({ children, to }: Prop) {
     const navigate = useNavigate();
     const className = 'text-sm text-blue-500 hover:text-blue-600 hover:underline'
 
