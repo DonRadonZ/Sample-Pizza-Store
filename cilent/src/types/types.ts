@@ -25,7 +25,7 @@ export interface IPosition {
     longitude: number;
 }
 
-export interface ICartItem {
+export type ICartItem = {
     pizzaId: number;
     name: string;
     quantity: number;
