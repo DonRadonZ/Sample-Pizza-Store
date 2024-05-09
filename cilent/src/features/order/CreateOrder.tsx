@@ -83,7 +83,7 @@ function CreateOrder() {
 
           {addressStatus === 'error' && <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md">{errorAddress}</p>}
           
-         {!position.latitude && !position?.longitude && (
+         {!position?.latitude && !position?.longitude && (
          
             <span className="absolute right-[3px] top-[3px] md:right-[5px] md:top-[5px] z-50">
             <Button
