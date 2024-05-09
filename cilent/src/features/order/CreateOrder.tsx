@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
+import { Form, redirect, useActionData, useNavigation, ActionFunctionArgs } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
 import { useAppDispatch, useAppSelector } from "../../hook";
+
+import { INewOrder, INewOrderErrors} from "../../types/types";
+
 import { clearCart, getCart, getTotalCartPrice } from "../cart/cartSlice";
 import EmptyCart from "../cart/EmptyCart";
 import store from "../../store";
@@ -25,13 +28,13 @@ function CreateOrder() {
     position,
     address,
     error: errorAddress,
-  } = useAppSelector(state => state.user);
+  } = useAppSelector((state) => state.user);
   const isLoadingAddress = addressStatus === 'loading';
   
-  const navigation = useNavigate()
+  const navigation = useNavigation()
   const isSubmitting = navigation.state === "submitting";
 
-  const formErrors = useActionData();
+  const formErrors = useActionData() as INewOrderErrors;
   const dispatch = useAppDispatch();
 
   
@@ -80,7 +83,7 @@ function CreateOrder() {
 
           {addressStatus === 'error' && <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md">{errorAddress}</p>}
           
-         {!position.latitude && !position.longitude && (
+         {!position.latitude && !position?.longitude && (
          
             <span className="absolute right-[3px] top-[3px] md:right-[5px] md:top-[5px] z-50">
             <Button
@@ -103,7 +106,7 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
-            value={withPriority}
+            checked={withPriority}
             onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label htmlFor="priority" className="font-medium">Want to yo give your order priority?</label>
@@ -115,8 +118,8 @@ function CreateOrder() {
             type="hidden"
             name='position'
             value={
-              position.longitude && position.latitude
-                ? `${position.latitude},${position.longitude}`
+              position?.latitude && position.longitude 
+                ? JSON.stringify(position)
                 : ''
             }
           />
@@ -128,19 +131,23 @@ function CreateOrder() {
   );
 }
 
-export async function action({request}) {
+export async function action({request}: ActionFunctionArgs) {
   const formData = await request.formData()
   const data = Object.fromEntries(formData);
 
   console.log(data);
 
-  const order = {
-    ...data,
-    cart: JSON.parse(data.cart),
+  const order: INewOrder = {
+    customer: data.customer as string,
+    address: data.address as string,
+    phone: data.phone as string,
+    cart: JSON.parse(data.cart as string),
     priority: data.priority === "true",
+    position: data.position as string
   };
 
-  const errors = {};
+  const errors: INewOrderErrors = {};
+
   if(!isValidPhone(order.phone)) 
     errors.phone = "Please give us your correct phone number. We might need it to contact you.";
 

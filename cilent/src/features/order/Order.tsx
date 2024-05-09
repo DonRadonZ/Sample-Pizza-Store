@@ -1,6 +1,6 @@
 // Test ID: IIDSAT
 
-import { useFetcher, useLoaderData } from "react-router-dom";
+import {LoaderFunctionArgs ,useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import {
     calcMinutesLeft,
@@ -10,11 +10,13 @@ import {
 import OrderItem from "./OrderItem";
 import { useEffect } from "react";
 import UpdateOrder from "./UpdateOrder";
+import {IOrder, IPizza} from '../../types/types'
+
   
 
   
   function Order() {
-    const order = useLoaderData();
+    const order = useLoaderData() as IOrder;
      
     const fetcher = useFetcher();
 
@@ -34,6 +36,8 @@ import UpdateOrder from "./UpdateOrder";
       cart,
     } = order;
     const deliveryIn = calcMinutesLeft(estimatedDelivery);
+
+    const menuPizzas: IPizza[] = fetcher.data;
   
     return (
       <div className="px-4 py-6 space-y-8">
@@ -63,7 +67,7 @@ import UpdateOrder from "./UpdateOrder";
               item={item}
               key={item.pizzaId}
               isLoadingIngredients={fetcher.state === 'loading'}
-              ingredients={fetcher?.data?.find(el => el.id === item.pizzaId)?.ingredients ?? []}
+              ingredients={menuPizzas?.find((pizza) => pizza.id === item.pizzaId)?.ingredients ?? []}
             />
           ))}
         </ul>
@@ -74,12 +78,14 @@ import UpdateOrder from "./UpdateOrder";
           <p className="font-bold">To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
         </div>
 
-        {!priority && <UpdateOrder order={order} />}
+        {!priority && <UpdateOrder  />}
       </div>
     );
   }
 
-  export async function loader({params}) {
+  export async function loader({params}: LoaderFunctionArgs) {
+    if (!params.orderId) return null;
+
     const order = await getOrder(params.orderId);
     return order;
   }

@@ -14,6 +14,8 @@ export interface Item {
     totalPrice: number;
 }
 
+
+
 export interface OrderItemProp {
     item: Item;
     isLoadingIngredients: boolean;
@@ -31,6 +33,33 @@ export type ICartItem = {
     quantity: number;
     unitPrice: number;
     totalPrice: number;
+}
+
+export interface IOrder {
+    id: string,
+    status: string;
+    customer: string;
+    phone: string;
+    address: string;
+    priority: boolean;
+    estimatedDelivery: string;
+    cart: ICartItem[];
+    position: string;
+    orderPrice: number;
+    priorityPrice: number;
+}
+
+export interface INewOrder  {
+    customer: string;
+    phone: string;
+    address: string;
+    cart: ICartItem[];
+    priority: boolean;
+    position: string;
+}
+
+export interface INewOrderErrors  {
+    phone?: string;
 }
 
 export interface IUserState {
