@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Button from '../../ui/Button';
 import { useDispatch } from 'react-redux';
 import { updateName } from '../../store/userSlice';
@@ -9,7 +9,7 @@ function CreateUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!username) return;
